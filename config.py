@@ -5,7 +5,7 @@ import datetime
 now = datetime.datetime.now()
 file = 'logs/' + str(now.year) + '-' + str(now.month) + '-' + str(now.day) + '.log'
 if os.path.isfile(file):
-	with codecs.open(file, 'r') as f:
+	with codecs.open(file, 'r', encoding="cp1251") as f:
 		zakaz = len(f.readlines())
 else:
 	zakaz = 0
