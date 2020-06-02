@@ -74,32 +74,35 @@ def save(message):
 					procentt = 0
 					sale = 0
 					ids = ''
-					if len(promo) == 5:
-						with open('salepromo.txt', 'r') as f:
-							lines = f.readlines()
-							for i in lines:
-								prom, skidka = i.replace('\n', '').split(":")
-								if prom == promo:
-									procent = int(skidka)
-									del lines[lines.index(i)]
-									break
-						if procent != 0:
-							with open('salepromo.txt', 'w') as f:
+					try:
+						if len(promo) == 5:
+							with open('salepromo.txt', 'r') as f:
+								lines = f.readlines()
 								for i in lines:
-									f.write(i)
-					else:
-						with open('timepromo.txt', 'r') as f:
-							lines = f.readlines()
-							for i in lines:
-								prom, skidka = i.replace('\n', '').split(":")
-								if prom == promo:
-									procentt = int(skidka)
-									del lines[lines.index(i)]
-									break
-						if procentt != 0:
-							with open('timepromo.txt', 'w') as f:
+									prom, skidka = i.replace('\n', '').split(":")
+									if prom == promo:
+										procent = int(skidka)
+										del lines[lines.index(i)]
+										break
+							if procent != 0:
+								with open('salepromo.txt', 'w') as f:
+									for i in lines:
+										f.write(i)
+						else:
+							with open('timepromo.txt', 'r') as f:
+								lines = f.readlines()
 								for i in lines:
-									f.write(i)
+									prom, skidka = i.replace('\n', '').split(":")
+									if prom == promo:
+										procentt = int(skidka)
+										del lines[lines.index(i)]
+										break
+							if procentt != 0:
+								with open('timepromo.txt', 'w') as f:
+									for i in lines:
+										f.write(i)
+					except:
+						pass
 					t = time
 					time += time * procentt / 100
 					e_t = s_t + time * 60
