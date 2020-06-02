@@ -120,7 +120,7 @@ def save(message):
 
 					print(time)
 					print(t)
-					
+
 					mbt = (t + 1) * 30
 					if mbt < time:
 						mbt = time
@@ -537,7 +537,7 @@ def send_text(message):
 		elif message.text in c.prise.keys() and c.num_of_scoo[message.chat.id] > len(c.typ[message.chat.id]):
 			c.price[message.chat.id].append(c.prise[message.text])
 			c.typ[message.chat.id].append(message.text)
-			bot.send_message(message.chat.id, 'Выбор самокатаs', reply_markup=bikes)
+			bot.send_message(message.chat.id, 'Выбор самоката', reply_markup=bikes)
 			if c.num_of_scoo[message.chat.id] == len(c.typ[message.chat.id]):
 				bot.send_message(message.chat.id, 'Самокат успешно выбран', reply_markup=method)
 		elif message.text in c.met:
