@@ -74,35 +74,32 @@ def save(message):
 					procentt = 0
 					sale = 0
 					ids = ''
-					try:
-						if len(promo) == 5:
-							with open('salepromo.txt', 'r') as f:
-								lines = f.readlines()
+					if len(promo) == 5:
+						with open('salepromo.txt', 'r') as f:
+							lines = f.readlines()
+							for i in lines:
+								prom, skidka = i.replace('\n', '').split(":")
+								if prom == promo:
+									procent = int(skidka)
+									del lines[lines.index(i)]
+									break
+						if procent != 0:
+							with open('salepromo.txt', 'w') as f:
 								for i in lines:
-									prom, skidka = i.replace('\n', '').split(":")
-									if prom == promo:
-										procent = int(skidka)
-										del lines[lines.index(i)]
-										break
-							if procent != 0:
-								with open('salepromo.txt', 'w') as f:
-									for i in lines:
-										f.write(i)
-						else:
-							with open('timepromo.txt', 'r') as f:
-								lines = f.readlines()
+									f.write(i)
+					else:
+						with open('timepromo.txt', 'r') as f:
+							lines = f.readlines()
+							for i in lines:
+								prom, skidka = i.replace('\n', '').split(":")
+								if prom == promo:
+									procentt = int(skidka)
+									del lines[lines.index(i)]
+									break
+						if procentt != 0:
+							with open('timepromo.txt', 'w') as f:
 								for i in lines:
-									prom, skidka = i.replace('\n', '').split(":")
-									if prom == promo:
-										procentt = int(skidka)
-										del lines[lines.index(i)]
-										break
-							if procentt != 0:
-								with open('timepromo.txt', 'w') as f:
-									for i in lines:
-										f.write(i)
-					except:
-						pass
+									f.write(i)
 					t = time
 					time += time * procentt / 100
 					e_t = s_t + time * 60
@@ -396,8 +393,8 @@ def start_message(message):
 				popular += biks[n] + ' - '
 				sc[sc.index(max(sc))] = -1
 			bot.send_message(message.chat.id, 'За последние 365 дней:\n'+'Общая касса: ' + str(kass) + '\n' +'Общего урона: ' + str(uron) + '\n' + 'Кол-во поездок: ' + str(ll) + '\n' +'Самый популярный: ' + popular + '\nКол-во повреждений: ' + str(kp.count(' ')//2), reply_markup=new)	
-	except:
-		pass
+	except Exception as e:
+		bot.send_message(message.chat.id, str(e))
 
 @bot.message_handler(content_types=['text'])
 def send_text(message):
